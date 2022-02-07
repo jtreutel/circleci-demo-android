@@ -76,7 +76,7 @@ jobs:
       - run: 
           name: 
           command: | 
-            export GOOGLE_APPLICATION_CREDENTIALS=${base64 --decode GOOGLE_APPLICATION_CREDENTIALS_BASE64}
+            export GOOGLE_APPLICATION_CREDENTIALS=${base64 --decode $GOOGLE_APPLICATION_CREDENTIALS_BASE64}
             bundle exec fastlane beta
       - android/save-gradle-cache
 
