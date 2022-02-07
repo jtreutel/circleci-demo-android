@@ -73,7 +73,11 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - ruby/install-deps # Ruby(Fastlane)
-      - run: bundle exec fastlane beta
+      - command: 
+          name: 
+          run: | 
+            export GOOGLE_APPLICATION_CREDENTIALS=${base64 --decode GOOGLE_APPLICATION_CREDENTIALS_BASE64}
+            bundle exec fastlane beta
       - android/save-gradle-cache
 
 workflows:
@@ -90,3 +94,4 @@ workflows:
             branches:
               only:
                 - master
+                - dev #demo purposes
