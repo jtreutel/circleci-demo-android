@@ -17,19 +17,6 @@ jobs:
       - run: ./gradlew lintDebug
       - android/save-gradle-cache
 
-  unit_test:
-    executor:
-      name: android/android-docker # Docker Executor
-      resource-class: xlarge
-      tag: 2021.12.1
-    steps:
-      - checkout
-      - android/restore-gradle-cache
-      - run: ./gradlew testDebugUnitTest
-      - android/save-gradle-cache
-      - store_test_results: # Upload Test Results(Test Insights)
-          path: ./app/build/test-results/testDebugUnitTest
-
   unit_test_parallel:
     executor:
       name: android/android-docker # Docker Executor
@@ -79,16 +66,18 @@ jobs:
 workflows:
   main:
     jobs:
-      - lint
-      - unit_test
-      - unit_test_parallel
+      - lint:
+          name: Linting
+      - unit_test_parallel:
+          name: Unit tests
       - integration_test:
+          name: Integration tests
           requires:
-            - unit_test
-            - unit_test_parallel
+            - Unit tests
       - beta:
+          name: Publish beta to Firebase
           requires:
-            - integration_test
+            - Integration tests
           context: # Context
             - mobile
           filters: # Filter Branch
