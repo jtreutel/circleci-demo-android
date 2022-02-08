@@ -76,7 +76,7 @@ workflows:
             - Linting
             - Unit tests
       - beta:
-          name: Publish beta to Firebase
+          name: Push beta to Firebase
           requires:
             - Integration tests
           context: # Context
