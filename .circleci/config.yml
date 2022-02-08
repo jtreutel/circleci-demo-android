@@ -73,6 +73,7 @@ workflows:
       - integration_test:
           name: Integration tests
           requires:
+            - Linting
             - Unit tests
       - beta:
           name: Publish beta to Firebase
