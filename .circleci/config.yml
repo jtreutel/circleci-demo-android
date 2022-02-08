@@ -82,8 +82,13 @@ workflows:
       - lint
       - unit_test
       - unit_test_parallel
-      - integration_test
+      - integration_test:
+          requires:
+            - unit_test
+            - unit_test_parallel
       - beta:
+          requires:
+            - integration_test
           context: # Context
             - mobile
           filters: # Filter Branch
